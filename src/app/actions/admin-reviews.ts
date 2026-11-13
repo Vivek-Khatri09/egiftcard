@@ -9,7 +9,7 @@ import { writeAudit } from "@/lib/audit";
 export async function moderateReview(fd: FormData): Promise<void> {
   const { user } = await requireRole("admin");
   const id = String(fd.get("id") ?? "");
-  const action = String(fd.get("action") ?? "");
+  const action = String(fd.get("decision") ?? "");
   if (!z.string().uuid().safeParse(id).success || !["approve", "hide", "delete"].includes(action)) return;
   const db = createAdminClient();
   const { error } = action === "delete"

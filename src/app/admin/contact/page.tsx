@@ -28,10 +28,11 @@ export default async function AdminContact({ searchParams }: { searchParams: Pro
                 <span className="text-xs text-ink-muted">{new Date(m.created_at).toLocaleString("en-GB")}</span>
               </div>
               <p className="mt-3 whitespace-pre-line text-sm">{m.description}</p>
-              <form action={setSubmissionStatus} className="mt-3 flex flex-wrap gap-3 text-sm font-semibold">
-                <input type="hidden" name="id" value={m.id} />
-                {STATUSES.filter((s) => s !== m.status).map((s) => <button key={s} name="status" value={s} className="capitalize text-ink-soft hover:text-brand-700">Mark {s.replace("_", " ")}</button>)}
-              </form>
+              <div className="mt-3 flex flex-wrap gap-3 text-sm font-semibold">
+                {STATUSES.filter((s) => s !== m.status).map((s) => (
+                  <form key={s} action={setSubmissionStatus}><input type="hidden" name="id" value={m.id} /><input type="hidden" name="status" value={s} /><button type="submit" className="capitalize text-ink-soft hover:text-brand-700">Mark {s.replace("_", " ")}</button></form>
+                ))}
+              </div>
             </li>
           ))}
         </ul>

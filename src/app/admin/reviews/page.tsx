@@ -37,11 +37,14 @@ export default async function AdminReviews({ searchParams }: { searchParams: Pro
               </div>
               <p className="mt-3 whitespace-pre-line text-ink-soft">{r.body}</p>
               <p className="mt-3 text-xs text-ink-muted">{r.profiles?.full_name ?? "Customer"} ({r.profiles?.email}) · {r.products?.name ?? "—"} · {new Date(r.created_at).toLocaleDateString("en-GB")}</p>
-              <form action={moderateReview} className="mt-3 flex gap-4 text-sm font-semibold">
-                <input type="hidden" name="id" value={r.id} />
-                {r.is_approved ? <button name="action" value="hide" className="text-ink-soft hover:text-amber-700">Unpublish</button> : <button name="action" value="approve" className="text-emerald-700 hover:underline">Approve</button>}
-                <button name="action" value="delete" className="text-ink-soft hover:text-rose-700">Delete</button>
-              </form>
+              <div className="mt-3 flex gap-4 text-sm font-semibold">
+                {r.is_approved ? (
+                  <form action={moderateReview}><input type="hidden" name="id" value={r.id} /><input type="hidden" name="decision" value="hide" /><button type="submit" className="text-ink-soft hover:text-amber-700">Unpublish</button></form>
+                ) : (
+                  <form action={moderateReview}><input type="hidden" name="id" value={r.id} /><input type="hidden" name="decision" value="approve" /><button type="submit" className="text-emerald-700 hover:underline">Approve</button></form>
+                )}
+                <form action={moderateReview}><input type="hidden" name="id" value={r.id} /><input type="hidden" name="decision" value="delete" /><button type="submit" className="text-ink-soft hover:text-rose-700">Delete</button></form>
+              </div>
             </li>
           ))}
         </ul>

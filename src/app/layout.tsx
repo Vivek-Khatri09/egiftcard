@@ -3,6 +3,7 @@ import { Poppins, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import DemoBanner from "@/components/layout/DemoBanner";
 import { getHeaderUser } from "@/lib/auth";
 
 const body = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-body", display: "swap" });
@@ -18,6 +19,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className={`${body.variable} ${display.variable}`}>
       <body className="bg-surface-alt font-sans text-ink antialiased">
+        <DemoBanner />
         <Header user={user} />
         <main>{children}</main>
         <Footer />

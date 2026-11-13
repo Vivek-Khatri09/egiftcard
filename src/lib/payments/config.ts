@@ -10,7 +10,8 @@ export function siteUrl() {
  * SAFETY: on the Vercel PRODUCTION deployment the gateway sandboxes are refused. A sandbox payment "completes" with
  * fake money, so allowing it in production would hand out real gift card codes for free.
  */
-const productionDeploy = () => process.env.VERCEL_ENV === "production";
+const productionDeploy = () => process.env.VERCEL_ENV === "production" && process.env.ALLOW_PAYMENT_SANDBOX !== "true";
+// Demo/submission sites that never hold real codes can opt in with ALLOW_PAYMENT_SANDBOX=true.
 
 /** eSewa ePay v2. In test mode the published eSewa sandbox credentials are used when none are configured. */
 export function esewaConfig() {
